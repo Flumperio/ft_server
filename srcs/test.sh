@@ -9,6 +9,15 @@ openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/
 #ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 #rm -rf /etc/nginx/sites-enabled/default
 
+
+#Arrancar MariaDB
+service mysql start
+#Instalacion y Configuracion PHP-MyAdmin
+mysql < /etc/phpMyAdmin/sql/create_tables.sql -u root
+mkdir /etc/phpMyAdmin/tmp
+chmod 777 /etc/phpMyAdmin/tmp
+chown -R www-data:www-data /etc/phpMyAdmin
+
 #arrancar NGINX
 service nginx start
 #Arrancar PHP
