@@ -15,8 +15,8 @@ RUN apt-get install curl -yq
 #install nginx
 RUN apt-get install nginx -yq
 COPY ./srcs/nginx.conf /etc/nginx/sites-available/default
-COPY ./srcs/pma.nginx.conf /etc/nginx/sites-available/pma
-RUN ln /etc/nginx/sites-available/pma /etc/nginx/sites-enabled/pma
+#COPY ./srcs/pma.nginx.conf /etc/nginx/sites-available/pma
+#RUN ln /etc/nginx/sites-available/pma /etc/nginx/sites-enabled/pma
 
 #Install MariaDB - Version GPL de MySQL
 RUN apt-get install mariadb-server mariadb-client -yq
@@ -31,9 +31,9 @@ RUN chown www-data:www-data -R /var/www/html/
 #Install PHP-MyAdmin
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz
 RUN tar -zxvf /tmp/phpMyAdmin-4.9.0.1-all-languages.tar.gz
-RUN mv /tmp/phpMyAdmin-4.9.0.1-all-languages /etc/phpMyAdmin
-COPY ./srcs/config.inc.php /etc/phpMyAdmin/config.inc.php
-COPY ./srcs/create_tables.sql /etc/phpMyAdmin/sql/create_tables.sql
+RUN mv /tmp/phpMyAdmin-4.9.0.1-all-languages /var/www/html/phpmyadmin
+COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
+COPY ./srcs/create_tables.sql /var/www/html/phpmyadmin/sql/create_tables.sql
 
 #test final
 COPY ./srcs/test.sh /tmp/test.sh

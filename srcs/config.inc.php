@@ -71,8 +71,8 @@ $cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
 /**
  * Directories for saving/loading files from server
  */
-$cfg['UploadDir'] = '';
-$cfg['SaveDir'] = '';
+$cfg['UploadDir'] = '/etc/phpmyadmin/upload';
+$cfg['SaveDir'] = '/etc/phpmyadmin/save';
 
 /**
  * Whether to display icons or text or both icons and text in table row
