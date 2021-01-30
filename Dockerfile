@@ -4,8 +4,8 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 8081
 
-RUN apt-get -q update
-RUN apt-get -q upgrade
+RUN apt-get -yq update
+RUN apt-get -yq upgrade
 
 RUN apt-get install wget -yq
 
@@ -34,6 +34,14 @@ RUN tar -zxvf /tmp/phpMyAdmin-4.9.0.1-all-languages.tar.gz
 RUN mv /tmp/phpMyAdmin-4.9.0.1-all-languages /var/www/html/phpmyadmin
 COPY ./srcs/config.inc.php /var/www/html/phpmyadmin/config.inc.php
 COPY ./srcs/create_tables.sql /var/www/html/phpmyadmin/sql/create_tables.sql
+
+#Install WordPRess
+RUN wget http://wordpress.org/latest.tar.gz
+RUN tar -xvzf /tmp/latest.tar.gz
+RUN mv /tmp/wordpress/ /var/www/html/wordpress
+RUN chown -R www-data:www-data /var/www/html/wordpress/
+RUN chmod 755 -R /var/www/html/wordpress/
+COPY ./srcs/create_wp.sql /tmp/create_wp.sql
 
 #test final
 COPY ./srcs/test.sh /tmp/test.sh

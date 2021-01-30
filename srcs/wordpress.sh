@@ -9,8 +9,8 @@ ENV TLS_HOSTNAME="$(echo ${WORDPRESS_URL} | cut -d'/' -f3)"
 ENV NGINX_CONF_DIR="/etc/nginx"
 ENV CERT_DIR="/etc/letsencrypt/live/${TLS_HOSTNAME}"
 
-
-tar -xvzf latest.tar.gz
+wget http://wordpress.org/latest.tar.gz
+tar -xvzf /tmp/latest.tar.gz
 mv wordpress/ /var/www/html/
 chown -R www-data:www-data /var/www/html/wordpress/
 chmod 755 -R /var/www/html/wordpress/
