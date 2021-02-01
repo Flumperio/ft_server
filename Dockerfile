@@ -2,27 +2,26 @@ FROM debian:buster
 WORKDIR /tmp
 EXPOSE 80
 EXPOSE 443
-EXPOSE 8081
+ARG index_onoff
 
 RUN apt-get -yq update
 RUN apt-get -yq upgrade
 
+#Install wget - instalacion paquetes via wwww
 RUN apt-get install wget -yq
-
-#para comprobar que funciona - BORRAR -
-RUN apt-get install curl -yq
 
 #install nginx
 RUN apt-get install nginx -yq
-COPY ./srcs/nginx.conf /etc/nginx/sites-available/default
-#COPY ./srcs/pma.nginx.conf /etc/nginx/sites-available/pma
-#RUN ln /etc/nginx/sites-available/pma /etc/nginx/sites-enabled/pma
+COPY ./srcs/nginx_off.conf /tmp/nginx_off.conf
+COPY ./srcs/nginx_on.conf /tmp/nginx_on.conf
+RUN if [ "$index_onoff" = "1" ]; then cp /tmp/nginx_on.conf /etc/nginx/sites-available/default; else cp /tmp/nginx_off.conf /etc/nginx/sites-available/default; fi
 
 #Install MariaDB - Version GPL de MySQL
 RUN apt-get install mariadb-server mariadb-client -yq
 
 #Install PHP
 RUN apt-get install -yq php7.3-fpm php7.3-common php7.3-mysql php7.3-gmp php7.3-curl php7.3-intl php7.3-mbstring php7.3-xmlrpc php7.3-gd php7.3-xml php7.3-cli php7.3-zip php7.3-soap php7.3-imap
+
 #Test PHP
 COPY ./srcs/test.php /var/www/html/test.php
 RUN chmod 755 -R /var/www/html
