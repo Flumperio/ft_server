@@ -1,15 +1,20 @@
-
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    test.sh                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jcsantos <jcsantos@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/02/02 09:48:30 by jcsantos          #+#    #+#              #
+#    Updated: 2021/02/02 09:48:35 by jcsantos         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #crear certificado
 echo -e "\e[35mCrear Certificado"
 mkdir /etc/nginx/ssl
 openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/nginx-selfsigned.pem -keyout /etc/ssl/certs/nginx-selfsigned.key -subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/OU=juasanto/CN=default"
 echo -e "Certificado \e[32mOK\e[39m"
-#crear sitio www
-#mv /tmp/nginx.conf /etc/nginx/sites-available/default
-#ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-#rm -rf /etc/nginx/sites-enabled/default
-
 
 #Arrancar MariaDB
 echo "\e[34mArrancar MariaDB"
@@ -40,7 +45,6 @@ echo "PHP \e[32mOK\e[39m"
 
 #Instalacion y configuracion de WordPress
 mysql < /tmp/create_wp.sql -u root
-
 
 #Tail para verificar
 echo "\e[96mComando Tail para ver accesos"
